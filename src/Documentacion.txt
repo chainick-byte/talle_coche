@@ -1,0 +1,41 @@
+
+Documentacion de aplicacion "Taller_coche"
+
+1. el proyecto esta estructurado por varios directorios que organiza clases por su 
+funcionalidad:
+    a. Direcotrio modelo: engloba modelos primitivos de objetos que equivale a cada tabla, de tal 
+    forma que cada propiedad de dichos objetos son atributos de cada tabla, en estas clses se hace dos 
+    tipos de constructore, vacios y con todas las propiedades, tambie se crean setters y getters de esta
+    forma estos clases obtienen el nombre de Bean o POJO.
+    b. Direcotio objetosDAO: reune clases de java cuya finalidad es relacionar mis objetos de java con las
+    tablas de la base de datos, por medio de conexion de driver jdbc hago consultas de la base de datos.
+    Casi todos los objetosDAO implemetnan interfaz llamada CRUD que reune 4 metodos create, update, insert, 
+    delete, de tal forma me aseguro que todos mis objetos tienen esa interaccion con MySQL y no me olvido 
+    de ningun metodo. A parte en funcion de la funcionalidad de mi aplicacion cada objeto obtiene metodos 
+    personalizados.  
+    c. Directorio Controller: Se trata de un conjunto de clases que actuan como una capa intermedia entra
+    objetosDAO y vistas, cuya mision es descargar de alguna forma la logica de las vistas y que ese codigo 
+    sea mas leible.
+    d. Directorio Vistas: es un directorio donde se reunen todas las vistas de la aplicacion, llevan 
+    prefijo "i" delante de nombre por que se trata de la vista.
+    e. Directorio utiles: se encuentra ebjetoDAo de la transaccion del reinicio de la bbdd
+    f. Directorio sql: ahi se encuentra el script de MySQl , que se utliza como almacenamiento de las 
+    sentencias de reinicio de la base de datos.
+2. el proyecto tiene mismo funcionamiento dentro de lo que cabe.
+    a. el metodo dametodo() de los objetosDAO vuelca toda la informacion almacenad en las tablas de MySQL
+    esta informacion se representa en las JTable en vistas correspondientes.
+    b. las variables tecnicas de tipo "id's" se cogen por medio de evento "mouseclicked" se cogen 
+    directamente de las tabals en las vistas , de tal forma se disminuye el numero consultas a MySQl.
+    c. Estas variables, mencionadas en el punto anterior se traspan entre las vistas por medio  de los 
+    constructores de dichas vistas(que han sido modificados, previamente), de esta forma a medida que se 
+    utiliza aplicacion se van reuniendose las "id's" en un pool y estan muy accesible a la hora de dar 
+    funcionalidad a las vistas. 
+    d. todos los botones que se han utilizado en las vistas estan condicionados o por la columna seleccionada 
+    de la tabla, o por formularios llenos. 
+    e. por otro lado los formularios se llenan por medio del mismo evento mouseclicked , al seleccionar 
+    la fila de la tabla , se llenan datos de formularios.
+3. Funcionamiento de la funcionalidad de reinicio de la base de datos:
+    funciona de la sigguiente manera, "src/utilies/PreparaTransaccion" en esta clase se le el documento .sql 
+    y se ropme por sentencias por emdio de metodo split(";", ), y se añade a la lista , de tal forma que al 
+    final de todo me devuelve una lista de strings donde cada elemento de esta lista es una sentencia de 
+    MySQl de creacion de base de datos que se lee por medio de una transaccion en clase "PreparaTransaccionDAO"
