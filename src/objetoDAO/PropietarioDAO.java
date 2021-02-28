@@ -1,4 +1,4 @@
-/*
+/*n 
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -26,7 +26,7 @@ public class PropietarioDAO implements CRUD {
 
     public int dameIdpropietarioRegistrado(String dni, int numero) {
         int resultado = 0;
-        String sql = "select id_propietario from propietario where dni=? and telefono=?";
+        String sql = "select p.id_propietario from propietario p where p.dni=? and p.telefono=?;";
         try {
             conexion = new Conexion().getConexion();
             ps = conexion.prepareStatement(sql);
@@ -48,7 +48,7 @@ public class PropietarioDAO implements CRUD {
     @Override
     public List dameTodo() {
         List<Propietario> miLista = new ArrayList<>();
-        String sql = "select * from propietario order by id_propietario desc";
+        String sql = "SELECT * FROM propietario;";
         try {
             conexion = new Conexion().getConexion();
             ps = conexion.prepareStatement(sql);
@@ -73,8 +73,8 @@ public class PropietarioDAO implements CRUD {
     @Override
     public int actualizar(Object[] o) {
         int respuesta = 0;
-        String sql = "update propietario set nombre=?,primer_apellido=?,segundo_apellido=?,"
-                + "dni=?,telefono=? where id_propietario=?";
+        String sql = "update propietario p set p.nombre=?,p.primer_apellido=?, "
+                + "p.segundo_apellido=?,p.dni=?,p.telefono=? where p.id_propietario=?";
         try {
             conexion = new Conexion().getConexion();
             ps = conexion.prepareStatement(sql);
@@ -96,7 +96,7 @@ public class PropietarioDAO implements CRUD {
     @Override
     public int guardar(Object[] o) {
         int respuesta = 0;
-        String sql = "insert into propietario values(null,?,?,?,?,?)";
+        String sql = "insert into propietario values(emp_sequence_propietario.nextval,?,?,?,?,?)";
         try {
             conexion = new Conexion().getConexion();
             ps = conexion.prepareStatement(sql);
@@ -116,7 +116,7 @@ public class PropietarioDAO implements CRUD {
 
     @Override
     public void eliminar(int id) {
-        String sql = "delete from propietario where id_propietario=?";
+        String sql = "delete from propietario p where p.id_propietario=?";
         try {
             conexion = new Conexion().getConexion();
             ps = conexion.prepareStatement(sql);
@@ -131,7 +131,7 @@ public class PropietarioDAO implements CRUD {
 
     public List damePropietarioPorDNI(String DNI) {
         List<Propietario> miLista = new ArrayList<>();
-        String sql = "select * from propietario where dni=?";
+        String sql = "select * from  propietario p where p.dni=?";
         try {
             conexion = new Conexion().getConexion();
             ps = conexion.prepareStatement(sql);
@@ -156,7 +156,7 @@ public class PropietarioDAO implements CRUD {
 
     public List damePropietarioPorTelefono(int telefono) {
         List<Propietario> miLista = new ArrayList<>();
-        String sql = "select * from propietario where telefono=?";
+        String sql = " select * from propietario p where p.telefono = ?;";
         try {
             conexion = new Conexion().getConexion();
             ps = conexion.prepareStatement(sql);
@@ -181,7 +181,7 @@ public class PropietarioDAO implements CRUD {
 
     public List<Propietario> damePropietarioPorId(int id_propietario) {
         List<Propietario>miLista=new ArrayList<>();
-        String sql = "select * from propietario where id_propietario=?";
+        String sql = "select *from propietario p where p.id_propietario=?";
         try {
             conexion = new Conexion().getConexion();
             ps = conexion.prepareStatement(sql);

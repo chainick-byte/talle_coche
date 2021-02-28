@@ -21,18 +21,12 @@ public class Conexion {
     public Conexion() {
 
         try {
-            String url = "jdbc:mysql://192.168.182.144/taller_coche?serverTimezone=UTC";
-            String user = "root";
-            String password = "";
-
-            conexion = DriverManager.getConnection(url, user, password);
-
-            if (conexion != null) {
-                System.out.println("se ha producido la conexion");
-            }
-
-        } catch (SQLException e) {
-            System.out.println("se ha producido un error de conexion");
+            Class.forName("oracle.jdbc.driver.OracleDriver");
+            conexion = DriverManager.getConnection("jdbc:oracle:thin:@192.168.56.1:1521:XE","SYSTEM","root");
+            System.out.println("se ha producido la conexion");
+        } catch (SQLException | ClassNotFoundException ex) {
+            System.out.println(ex.getMessage());
+            System.out.println("Error en la conexión de la base de datos");
         }
 
     }
